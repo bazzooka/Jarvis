@@ -1,0 +1,40 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "res/xml/config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"androidSpeech\"><param name=\"android-package\" value=\"cordova.android.speech.plugin.androidSpeech\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"androidTTS\"><param name=\"android-package\" value=\"cordova.android.tts.plugin.androidTTS\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "cordova.android.speech.plugin": {
+            "PACKAGE_NAME": "fr.omegasolutions.jarvis"
+        },
+        "cordova.android.tts.plugin": {
+            "PACKAGE_NAME": "fr.omegasolutions.jarvis"
+        }
+    },
+    "dependent_plugins": {}
+}

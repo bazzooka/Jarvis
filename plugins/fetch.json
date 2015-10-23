@@ -1,0 +1,26 @@
+{
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-whitelist@1"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova.android.speech.plugin": {
+        "source": {
+            "type": "local",
+            "path": "..\\androidSpeech"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova.android.tts.plugin": {
+        "source": {
+            "type": "local",
+            "path": "..\\androidTTS"
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}
