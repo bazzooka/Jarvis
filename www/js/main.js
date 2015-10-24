@@ -1,1 +1,1 @@
-require('./index.js');
+import main from '../jsx/main.jsx';

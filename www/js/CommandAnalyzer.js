@@ -1,4 +1,4 @@
-//var Commands = require('./Commands.js');
+import FreeboxCommander from './freebox/FreeboxCommander';
 
 var CommandAnalyzer = {
 	startRecognize: cordova.plugins.androidSpeech.startRecognize,
