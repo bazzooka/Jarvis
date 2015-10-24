@@ -1,0 +1,43 @@
+{
+  "name": "jarvis",
+  "version": "1.0.0",
+  "description": "Phonegap application that immitate Iron Man Jarvis assistant",
+  "main": "Gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bazzooka/Jarvis.git"
+  },
+  "author": "bazzooka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bazzooka/Jarvis/issues"
+  },
+  "homepage": "https://github.com/bazzooka/Jarvis#readme",
+  "peerDependencies": {
+    "react": "~0.14.0"
+  },
+  "devDependencies": {
+    "babelify": "^6.4.0",
+    "browserify": "^11.2.0",
+    "glob": "^5.0.15",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-if": "^2.0.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-order": "^1.1.1",
+    "gulp-sass": "^2.0.4",
+    "gulp-shell": "^0.5.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-streamify": "^1.0.2",
+    "gulp-uglify": "^1.4.2",
+    "gulp-util": "^3.0.7",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0"
+  }
+}

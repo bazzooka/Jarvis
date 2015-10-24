@@ -1,1 +1,4 @@
 **/plugins/cordova.android*/**
+**/node_modules/**
+npm-debug.log
+**/build/**
