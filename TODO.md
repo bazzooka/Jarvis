@@ -1,5 +1,7 @@
 # TODO's
 
+- Add Gulp 
+
 - Fix bug for speak at the begining
 - Implement Freebox commands: 
   - "Augmente le volume de la télévision de 10 points"

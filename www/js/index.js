@@ -46,7 +46,7 @@ var app = {
 
         console.log('Received Event: ' + id);
 
-        this.speakReady(3);
+        this.speakReady(1);
     },
 
     speakReady: function(status){
