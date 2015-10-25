@@ -14,7 +14,11 @@ var CommandAnalyzer = {
 	},
 
 	compareSpeaksAgainstCommands: function(orders){
-
+		for(var i = 0, l = orders.length; i < l ; i++){
+			for(var j = 0, n = this.commands.length; j < n; j++){
+				
+			}
+		}
 	},
 
 	listenCommand: function(){
