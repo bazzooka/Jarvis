@@ -13,10 +13,14 @@ var CommandAnalyzer = {
 		this.commands.push(FreeboxCommander.getCommands());
 	},
 
+	compareSpeaksAgainstCommands: function(orders){
+
+	},
+
 	listenCommand: function(){
 		this.startRecognize(
-			function(){
-				console.log(arguments);
+			(commands) => {
+				this.compareSpeaksAgainstCommands(orders);
 			}, 
 			function(){
 				console.log(arguments);
