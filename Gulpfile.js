@@ -24,7 +24,8 @@ var order = require("gulp-order");
 // We create an array of dependencies. These are NPM modules you have
 // installed in node_modules. Think: "require('react')" or "require('underscore')"
 var dependencies = [
-  'react' // react is part of this boilerplate
+  'react', // react is part of this boilerplate
+  'react-dom'
 ];
 
 // Now this task both runs your workflow and deploys the code,
@@ -45,7 +46,10 @@ var browserifyTask = function(options) {
 
   /* We set our dependencies as externals of our app bundler.
    For some reason it does not work to set these in the options above */
-  appBundler.external(options.development ? dependencies : []);
+  //appBundler.external((options.development ? dependencies : []));
+  dependencies.forEach(function(lib) {
+    appBundler.external(lib);
+  });
 
   /* This is the actual rebundle process of our application bundle. It produces
    a "main.js" file in our "build" folder. */
