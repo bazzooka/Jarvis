@@ -1,7 +1,7 @@
 {
 	"commandes" : [
 		{
-			"id": "inc_vol",
+			"id": "vol_inc",
 			"module": "freebox",
 			"commandes" : [
 				["augmente", "son", "télé"]
@@ -12,7 +12,7 @@
 			],
 			"verification": "Voulez-vous que j'augmente le son de la télé ?"
 		}, {
-			"id": "dec_vol",
+			"id": "vol_dec",
 			"module": "freebox",
 			"commandes" : [
 				["rédui", "son", "télé"],

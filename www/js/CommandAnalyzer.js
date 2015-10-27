@@ -80,7 +80,8 @@ var CommandAnalyzer = {
 		for(var module in this.plugins){
 			if(this.plugins.hasOwnProperty(module) && module === command.com.module){
 				this.plugins[module].executeCommande(command.com, command.order, function(){
-					console.log("everything is ok");
+					let confirmSpeak = command.com.validation[Math.floor(Math.random() * command.com.validation.length)];
+					this.speak(confirmSpeak, true);
 				});
 			}
 		}

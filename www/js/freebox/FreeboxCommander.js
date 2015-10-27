@@ -19,8 +19,8 @@ let FreeboxCommander = {
 	// sendCommand: function(callback, key, repeat = 1){
 	executeCommande: function(command, order, callback){
 		switch(command.id){
-			case "inc_vol":
-			case "dec_vol":
+			case "vol_inc":
+			case "vol_dec":
 				this.freeRemoteSend(this.getFinalUrl() + command.id, callback);
 				break;
 		}
@@ -30,6 +30,7 @@ let FreeboxCommander = {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
             if (xhr.readyState === 4){
+            	callback();
                 // alert(xhr.responseText);
             }
         }
