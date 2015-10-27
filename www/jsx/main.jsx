@@ -6,7 +6,10 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var App = require('./App.jsx');
 
-ReactDOM.render(
-    <App/>,
-    document.getElementById("container")
-);
+document.addEventListener('deviceready', function(){
+	ReactDOM.render(
+	    <App/>, 
+	    document.getElementById("container")
+	);
+}, false);
+

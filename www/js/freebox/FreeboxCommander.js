@@ -3,36 +3,40 @@ import commands from './commands.json';
 let FreeboxCommander = {
 	baseUrl : "http://hd1.freebox.fr/pub/remote_control?code=",
 	code: "50914410",
-	interval: null,
 
 	getFinalUrl : function(){
 		return (this.baseUrl + this.code + "&key=");
 	},
 
-	getCommands: function(){
-		return commands;
-	},
-
-	sendCommand: function(callback, key, repeat = 1){
-		this.interval && clearInterval(this.interval);
-
-		if(repeat > 1){
-			this.interval = setInterval(() => {
-				console.log("Execute command %s", key);
-				this.sendCommand(callback, key, repeat--);
-			}, 50);
-		} else {
-			this.sendCommand(callback, key, repeat--);
+	loadPlugin: function(){
+		return {
+			commands : commands.commandes,
+			callback: this.sendCommand,
+			module: "freebox"
 		}
 	},
 
-	decVol: function(callback, qty = 2){
-		this.sendCommand(callback, "vol_dec", qty);
+	// sendCommand: function(callback, key, repeat = 1){
+	executeCommande: function(command, order, callback){
+		switch(command.id){
+			case "inc_vol":
+			case "dec_vol":
+				this.freeRemoteSend(this.getFinalUrl() + command.id, callback);
+				break;
+		}
 	},
 
-	incVol: function(callback, qty = 2){
-		this.sendCommand(callback, "vol_inc", qty);
-	}
+	freeRemoteSend : function(url, callback){
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState === 4){
+                // alert(xhr.responseText);
+            }
+        }
+        xhr.open('GET', url, true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');;
+        xhr.send();
+    }
 
 };
 

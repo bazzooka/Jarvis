@@ -1,35 +1,42 @@
-[
-	{
-		"id": "INC_VOL",
-		"commandes" : [
-			["augmenter", "son", "télé"],
-			["augmente", "son", "télé"]
-		],
-		"validation": [
-			"Le son de la télé a été augmenté",
-			"Monsieur, le son de la télé a été augmenté"
-		]
-	}, {
-		"id": "DEC_VOL",
-		"commandes" : [
-			["réduire", "son", "télé"],
-			["réduis", "son", "télé"]
-		],
-		"validation": [
-			"Le son de la télé a été réduis",
-			"Monsieur, le son de la télé a été réduis"
-		]
-	}, {
-		"id": "BALAYAGE",
-		"commandes" : [
-			["balayage", "chaines"],
-			["balaies", "chaines", "télé"],
-			["balaies", "chaines", "télé"]
-		]
-	}, {
-		"id": "CHANGE_PROG",
-		"commandes" : [
-			["change", "chaine"]
-		]
-	}
-]
+{
+	"commandes" : [
+		{
+			"id": "inc_vol",
+			"module": "freebox",
+			"commandes" : [
+				["augmente", "son", "télé"]
+			],
+			"validation": [
+				"Le son de la télé a été augmenté",
+				"Monsieur, le son de la télé a été augmenté"
+			],
+			"verification": "Voulez-vous que j'augmente le son de la télé ?"
+		}, {
+			"id": "dec_vol",
+			"module": "freebox",
+			"commandes" : [
+				["rédui", "son", "télé"],
+				["baisse", "son", "télé"]
+			],
+			"validation": [
+				"Le son de la télé a été réduis",
+				"Monsieur, le son de la télé a été réduis"
+			],
+			"verification": "Voulez-vous que je baisse le son de la télé ?"
+		}, {
+			"id": "BALAYAGE",
+			"module": "freebox",
+			"commandes" : [
+				["balayage", "chaînes"],
+				["balaies", "chaînes"],
+				["balai", "chaînes", "télé"],
+			]
+		}, {
+			"id": "CHANGE_PROG",
+			"module": "freebox",
+			"commandes" : [
+				["change", "chaine"]
+			]
+		}
+	]
+}

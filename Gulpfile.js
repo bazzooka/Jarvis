@@ -28,6 +28,11 @@ var dependencies = [
   'react-dom'
 ];
 
+var phonegapPlugins = [
+  'SpeechSynthesis',
+  'org.apache.cordova.speech.speechsynthesis.SpeechSynthesis'
+]
+
 // Now this task both runs your workflow and deploys the code,
 // so you will see "options.development" being used to differenciate
 // what to do
@@ -48,6 +53,10 @@ var browserifyTask = function(options) {
    For some reason it does not work to set these in the options above */
   //appBundler.external((options.development ? dependencies : []));
   dependencies.forEach(function(lib) {
+    appBundler.external(lib);
+  });
+
+  phonegapPlugins.forEach(function(lib) {
     appBundler.external(lib);
   });
 
@@ -83,6 +92,10 @@ var browserifyTask = function(options) {
   var vendorsBundler = browserify({
     debug: false, // It is nice to have sourcemapping when developing
     require: dependencies
+  });
+
+  phonegapPlugins.forEach(function(lib) {
+    vendorsBundler.external(lib);
   });
 
   /* We only run the vendor bundler once, as we do not care about changes here,
