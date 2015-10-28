@@ -8,5 +8,4 @@
 ## Launch speak
 > cordova.plugins.androidTTS.speak(function(){console.log(arguments);}, function(){console.log(arguments);}, "Bonjour")
 
-SMS GITHUB : https://github.com/Pyo25/Phonegap-SMS-reception-plugin
 

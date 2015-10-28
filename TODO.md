@@ -14,3 +14,7 @@
   - Se remettre en écoute
 
 - Retenir la dernière commande 
+
+
+SMS GITHUB : https://github.com/Pyo25/Phonegap-SMS-reception-plugin
+CORDOVA + BG SERVICE : https://github.com/Red-Folder/bgs-core
