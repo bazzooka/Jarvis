@@ -49,7 +49,12 @@
 				["balai", "chaîne"],
 				["balai", "chaîne", "télé"],
 				["change", "programme", "tou", "{NUMBER}"]
-			]
+			],
+			"validation": [
+				"Monsieur, le balayage des chaînes commence.",
+				"Dites moi stop quand vous aurez trouvé votre programme."
+			],
+			"verification": "Voulez-vous que je change l'état de la télé ?"
 		}, {
 			"id": "stop_balayage",
 			"module": "freebox",
@@ -64,11 +69,29 @@
 			],
 			"verification": "Voulez-vous que j'arrête le balayage ?"
 		}, {
-			"id": "change_prog",
+			"id": "lecture_pause",
 			"module": "freebox",
 			"commandes" : [
-				["change", "chaîne"]
-			]
+				["arrête", "lecture"],
+				["reprend", "lecture"],
+				["met", "en", "pause"],
+				["arrête", "le", "programme"]
+			],
+			"validation": [
+				"Bien monsieur."
+			],
+			"verification": "Voulez-vous que j'arrête ou reprenne la lecture ?"
+		}, {
+			"id": "mute",
+			"module": "freebox",
+			"commandes" : [
+				["coupe", "son"],
+				["remet", "son"]
+			],
+			"validation": [
+				"J'espère que le volume sonore vous satisfait..."
+			],
+			"verification": "Voulez-vous que je change le volume sonore ?"
 		}
 	]
 }

@@ -53,6 +53,8 @@ var CommandAnalyzer = {
 						commandeScore.score++;
 					}
 
+					// If BestScore => Augment score
+
 					resultats.push(commandeScore); 
 				}
 			}

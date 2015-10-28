@@ -1,0 +1,39 @@
+{
+	"chaines" : [
+		{
+			"id": "nouvelle_chaine",
+			"module": "freebox",
+			"commandes" : [
+				["passe", "tf1"],
+				["passe", "france 2"],
+				["passe", "france 3"],
+				["passe", "france 5"],
+				["passe", "m6"],
+				["passe", "arte"],
+				["passe", "d8"],
+				["passe", "w9"],
+				["passe", "tmc"],
+				["passe", "nt1"],
+				["passe", "nrj12"],
+				["passe", "lcp"],
+				["passe", "france 4"],
+				["passe", "bfm"],
+				["passe", "i-Télé"],
+				["passe", "d 17"],
+				["passe", "gulli"],
+				["passe", "france ô"],
+				["passe", "hd1"],
+				["passe", "équipe 21"],
+				["passe", "sister"],
+				["passe", "chérie 25"],
+				["passe", "rtl 9"],
+				["passe", "ab 1"]
+			],
+			"validation": [
+				"Très bien",
+				"Monsieur."
+			],
+			"verification": "Voulez-vous que je change de chaîne ?"
+		}
+	]
+}
