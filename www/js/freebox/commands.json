@@ -41,18 +41,33 @@
 			],
 			"verification": "Voulez-vous que je change l'état de la télé ?"
 		}, {
-			"id": "BALAYAGE",
+			"id": "balayage",
 			"module": "freebox",
 			"commandes" : [
-				["balayage", "chaînes"],
-				["balaies", "chaînes"],
-				["balai", "chaînes", "télé"],
+				["fai", "balayage", "chaîne"],
+				["balayage", "chaîne"],
+				["balai", "chaîne"],
+				["balai", "chaîne", "télé"],
+				["change", "programme", "tou", "{NUMBER}"]
 			]
 		}, {
-			"id": "CHANGE_PROG",
+			"id": "stop_balayage",
+			"module": "freebox",
+			"parent": "balayage",
+			"commandes": [
+				["stop"],
+				["arrête"]
+			],
+			"validation": [
+				"Bien monsieur !",
+				"Je crois que c'est un bon programme."
+			],
+			"verification": "Voulez-vous que j'arrête le balayage ?"
+		}, {
+			"id": "change_prog",
 			"module": "freebox",
 			"commandes" : [
-				["change", "chaine"]
+				["change", "chaîne"]
 			]
 		}
 	]

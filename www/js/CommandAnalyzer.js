@@ -4,6 +4,7 @@ var CommandAnalyzer = {
 	
 	commands: [],
 	plugins: [],
+	lastCommand: {},
 
 	init: function(){
 		this.loadPlugins(); 
@@ -35,7 +36,6 @@ var CommandAnalyzer = {
 					commandeScore = {com: this.commands[j], score: 0, parameters: {}, compareWith: words.join(" "), order: order};
 					for(var x = 0, xl = words.length; x < xl; x++){
 						let word = words[x].toLocaleLowerCase();
-
 						// Detect number parameter
 						if( word === '{number}'){
 							let numberParams = order.match(/\d+/gi);
@@ -47,9 +47,14 @@ var CommandAnalyzer = {
 							commandeScore.score++;
 						}
 					}
+
+					// Add a point if this command has lastCommand id for parent
+					if(commandeScore.score > 0 && (this.commands[j].parent && this.lastCommand.command && this.commands[j].parent === this.lastCommand.command.com.id)){
+						commandeScore.score++;
+					}
+
 					resultats.push(commandeScore); 
 				}
-				
 			}
 		}
 		this.sortResultats(resultats);
@@ -88,9 +93,15 @@ var CommandAnalyzer = {
 	executeCommand: function(command){
 		for(var module in this.plugins){
 			if(this.plugins.hasOwnProperty(module) && module === command.com.module){
-				this.plugins[module].executeCommande(command, command.order, () =>{
+				this.lastCommand = {command: command};
+				this.plugins[module].executeCommande(command, command.order, (error) =>{
 					let confirmSpeak = command.com.validation[Math.floor(Math.random() * command.com.validation.length)];
-					this.speak(confirmSpeak, true);
+					if(error){
+						this.speak("Désolé monsieur, mais une erreur est survenue.", true);
+					} else {
+						this.speak(confirmSpeak, true);
+					}
+					
 				});
 			}
 		}
