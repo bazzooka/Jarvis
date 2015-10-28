@@ -18,10 +18,17 @@ let FreeboxCommander = {
 
 	// sendCommand: function(callback, key, repeat = 1){
 	executeCommande: function(command, order, callback){
-		switch(command.id){
+		switch(command.com.id){
 			case "vol_inc":
 			case "vol_dec":
-				this.freeRemoteSend(this.getFinalUrl() + command.id, callback);
+				if(command.parameters.numbers && command.compareWith.indexOf("{NUMBER}") >= 0){
+					this.freeRemoteSend(this.getFinalUrl() + command.com.id + "&repeat=" + command.parameters.numbers[0], callback);
+				} else {
+					this.freeRemoteSend(this.getFinalUrl() + command.com.id, callback);
+				}
+				break;
+			case "power":
+				this.freeRemoteSend(this.getFinalUrl() + command.com.id, callback);
 				break;
 		}
 	},
@@ -30,8 +37,12 @@ let FreeboxCommander = {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
             if (xhr.readyState === 4){
-            	callback();
-                // alert(xhr.responseText);
+            	if (req.readyState != 4) return;
+    			if (req.status != 200 && req.status != 304) {
+    				alert('HTTP error ' + req.status);
+    				return;
+    			}
+    			callback();
             }
         }
         xhr.open('GET', url, true);

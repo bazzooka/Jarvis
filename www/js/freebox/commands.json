@@ -4,7 +4,10 @@
 			"id": "vol_inc",
 			"module": "freebox",
 			"commandes" : [
-				["augmente", "son", "télé"]
+				["augmente", "son", "télé"],
+				["augmente", "son", "télé", "{NUMBER}"],
+				["monte", "son", "télé"],
+				["monte", "son", "télé", "{NUMBER}"]
 			],
 			"validation": [
 				"Le son de la télé a été augmenté",
@@ -16,13 +19,27 @@
 			"module": "freebox",
 			"commandes" : [
 				["rédui", "son", "télé"],
-				["baisse", "son", "télé"]
+				["baisse", "son", "télé"],
+				["rédui", "son", "télé", "{NUMBER}"],
+				["baisse", "son", "télé", "{NUMBER}"]
 			],
 			"validation": [
 				"Le son de la télé a été réduis",
 				"Monsieur, le son de la télé a été réduis"
 			],
 			"verification": "Voulez-vous que je baisse le son de la télé ?"
+		}, {
+			"id": "power",
+			"module": "freebox",
+			"commandes": [
+				["étein", "télé"],
+				["allume", "télé"]
+			],
+			"validation": [
+				"Monsieur, l'état de la télé a été changé !",
+				"Monsieur, je vous laisse apprécier le résultat."
+			],
+			"verification": "Voulez-vous que je change l'état de la télé ?"
 		}, {
 			"id": "BALAYAGE",
 			"module": "freebox",

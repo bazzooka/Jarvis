@@ -32,9 +32,18 @@ var CommandAnalyzer = {
 				let currentCommand = this.commands[j].commandes;
 				for(var k = 0, p = currentCommand.length; k < p; k++){
 					let words = currentCommand[k],
-					commandeScore = {com: this.commands[j], score: 0, compareWith: words.join(" "), order: order};
+					commandeScore = {com: this.commands[j], score: 0, parameters: {}, compareWith: words.join(" "), order: order};
 					for(var x = 0, xl = words.length; x < xl; x++){
-						if(order.indexOf(words[x].toLocaleLowerCase()) >= 0){
+						let word = words[x].toLocaleLowerCase();
+
+						// Detect number parameter
+						if( word === '{number}'){
+							let numberParams = order.match(/\d+/gi);
+							if(numberParams){
+								commandeScore.parameters.numbers = numberParams;
+								commandeScore.score++;
+							}
+						} else if(order.indexOf(word) >= 0){
 							commandeScore.score++;
 						}
 					}
@@ -79,7 +88,7 @@ var CommandAnalyzer = {
 	executeCommand: function(command){
 		for(var module in this.plugins){
 			if(this.plugins.hasOwnProperty(module) && module === command.com.module){
-				this.plugins[module].executeCommande(command.com, command.order, function(){
+				this.plugins[module].executeCommande(command, command.order, () =>{
 					let confirmSpeak = command.com.validation[Math.floor(Math.random() * command.com.validation.length)];
 					this.speak(confirmSpeak, true);
 				});
