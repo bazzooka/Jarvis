@@ -13,11 +13,59 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"androidTTS\"><param name=\"android-package\" value=\"cordova.android.tts.plugin.androidTTS\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"androidSpeech\"><param name=\"android-package\" value=\"cordova.android.speech.plugin.androidSpeech\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"androidTTS\"><param name=\"android-package\" value=\"cordova.android.tts.plugin.androidTTS\" /></feature>",
+                            "xml": "<feature name=\"BackgroundServicePlugin\"><param name=\"android-package\" value=\"com.red_folder.phonegap.plugin.backgroundservice.BackgroundServicePlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"androidSMS\"><param name=\"android-package\" value=\"cordova.android.sms.plugin.androidSMS\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.RECEIVE_SMS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_CONTACTS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_PROFILE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_SMS\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest/application": [
+                        {
+                            "xml": "<receiver android:name=\"com.red_folder.phonegap.plugin.backgroundservice.BootReceiver\"><intent-filter><action android:name=\"android.intent.action.BOOT_COMPLETED\" /></intent-filter></receiver>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:name=\"cordova.android.sms.plugin.MyService\"><intent-filter><action android:name=\"cordova.android.sms.plugin.MyService\" /></intent-filter></service>",
                             "count": 1
                         }
                     ]
@@ -29,10 +77,16 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
+        "cordova.android.tts.plugin": {
+            "PACKAGE_NAME": "fr.omegasolutions.jarvis"
+        },
         "cordova.android.speech.plugin": {
             "PACKAGE_NAME": "fr.omegasolutions.jarvis"
         },
-        "cordova.android.tts.plugin": {
+        "com.red_folder.phonegap.plugin.backgroundservice": {
+            "PACKAGE_NAME": "fr.omegasolutions.jarvis"
+        },
+        "cordova.android.sms.plugin": {
             "PACKAGE_NAME": "fr.omegasolutions.jarvis"
         }
     },

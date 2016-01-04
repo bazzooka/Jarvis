@@ -7,6 +7,14 @@
         "is_top_level": true,
         "variables": {}
     },
+    "cordova.android.tts.plugin": {
+        "source": {
+            "type": "local",
+            "path": "..\\androidTTS"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
     "cordova.android.speech.plugin": {
         "source": {
             "type": "local",
@@ -15,10 +23,19 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova.android.tts.plugin": {
+    "com.red_folder.phonegap.plugin.backgroundservice": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Red-Folder/bgs-core.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova.android.sms.plugin": {
         "source": {
             "type": "local",
-            "path": "..\\androidTTS"
+            "path": "..\\androidSMS"
         },
         "is_top_level": true,
         "variables": {}

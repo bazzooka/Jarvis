@@ -12,9 +12,9 @@
 - Implement free exchange with Pepper:
   - "Peper" => "Oui monsieur", "Monsieur", "A votre service", "Que puis-je pour vous ?"
   - Se remettre en écoute
-
+  
 - Retenir la dernière commande 
 
 
-SMS GITHUB : https://github.com/Pyo25/Phonegap-SMS-reception-plugin
-CORDOVA + BG SERVICE : https://github.com/Red-Folder/bgs-core
+ESSAYER DE METTRE LE CONTENTRESOLVER DANS UN AUTRE PLUGIN
+ESSAYER AVEC 

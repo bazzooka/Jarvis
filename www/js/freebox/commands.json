@@ -48,7 +48,8 @@
 				["balayage", "chaîne"],
 				["balai", "chaîne"],
 				["balai", "chaîne", "télé"],
-				["change", "programme", "tou", "{NUMBER}"]
+				["change", "programme", "tou", "{NUMBER}"],
+				["fai", "balayage", "chaîne", "{NUMBER}"]
 			],
 			"validation": [
 				"Monsieur, le balayage des chaînes commence.",

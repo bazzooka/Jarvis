@@ -48,16 +48,20 @@ let FreeboxCommander = {
 					interval = command.parameters.numbers[0];
 				}
 
-				this.freeRemoteSend(this.getFinalUrl() + i, callback);	
+				callback();
+				this.changeProg(i, null);
+				// this.freeRemoteSend(this.getFinalUrl() + i, callback);	
 				this.repeatInterval = setInterval(() => {
 					i++;
-					this.freeRemoteSend(this.getFinalUrl() + i, callback);	
+					//this.freeRemoteSend(this.getFinalUrl() + i, callback);	
+					this.changeProg(i, null);
 				}, interval * 1000);
 				break;
 			case "nouvelle_chaine":
 				this.stopRepeatInterval();
 				let key = ChaineDetecter.getKeyFromCommand(command);
-				this.freeRemoteSend(this.getFinalUrl() + key, callback);
+				//this.freeRemoteSend(this.getFinalUrl() + key, callback);
+				this.changeProg(key, callback);
 				break;
 			case "lecture_pause": 
 				this.stopRepeatInterval()
@@ -87,6 +91,14 @@ let FreeboxCommander = {
         xhr.open('GET', url, true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');;
         xhr.send();
+    },
+
+    changeProg: function(chaine, callback){
+    	let programme = (chaine + "");
+
+    	for(let i = 0, l = programme.length; i < l; i++){
+    		this.freeRemoteSend(this.getFinalUrl() + programme[i], callback);
+    	}
     }
 
 };
