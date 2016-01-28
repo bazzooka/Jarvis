@@ -7,15 +7,15 @@ var App = React.createClass({
 	componentDidMount: function(){
 		this.speak = function(text, queue = "false"){
 			cordova.plugins.androidTTS.speak(
-				function(){}, 
-				function(){}, 
+				function(){},
+				function(){},
 				text,
 				queue
 			);
 		};
-		
+
 		console.log("Register for bootstrap");
-		cordova.plugins.androidSMS.registerForBootStart(
+		!window.isDesktop && cordova.plugins.androidSMS.registerForBootStart(
 			function(){
 				console.log("success", arguments);
 			},
@@ -23,7 +23,7 @@ var App = React.createClass({
 				console.log("fail", arguments);
 			}
 		)
-		
+
 	},
 
 	render: function(){

@@ -7,6 +7,8 @@ let Recognizer = React.createClass({
 		document.getElementById('recognize-button').addEventListener("click", function(e){
 			CommandAnalyzer.listenCommand();
 		});
+
+		CommandAnalyzer.debugCompareOrder("A quelle heure est le prochain train pour Enghien les Bains depuis Paris ?");
 	},
 
 	render: function(){
