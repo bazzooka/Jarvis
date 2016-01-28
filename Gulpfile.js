@@ -20,6 +20,7 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var livereload = require('gulp-livereload');
 var order = require("gulp-order");
+var connect = require("gulp-connect");
 
 // We create an array of dependencies. These are NPM modules you have
 // installed in node_modules. Think: "require('react')" or "require('underscore')"
@@ -37,7 +38,6 @@ var phonegapPlugins = [
 // so you will see "options.development" being used to differenciate
 // what to do
 var browserifyTask = function(options) {
-
   /* First we define our application bundler. This bundle is the
    files you create in the "app" folder */
   var appBundler = browserify({
@@ -155,6 +155,12 @@ var cssTask = function(options) {
   }
 }
 
+gulp.task('connect', function() {
+  connect.server({
+    root: 'www'
+  });
+});
+
 // Starts our development workflow
 gulp.task('default', function() {
 
@@ -186,17 +192,19 @@ gulp.task('default', function() {
 gulp.task('deploy', function() {
 
   browserifyTask({
-    development: false,
-    src: './www/main.js',
+    development: true,
+    src: './www/js/main.js',
     dest: './www/build'
   });
 
   sassTask({
     development: false,
-    src: './www/css/*.scss'
+    src: './www/scss/*.scss'
   });
 
 });
+
+gulp.task('dev', ['connect', 'default']);
 
 // Runs the test with phantomJS and produces XML files
 // that can be used with f.ex. jenkins

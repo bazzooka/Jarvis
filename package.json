@@ -27,6 +27,7 @@
     "glob": "^5.0.15",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.3.1",
     "gulp-cssmin": "^0.1.7",
     "gulp-if": "^2.0.0",
     "gulp-livereload": "^3.8.1",
@@ -39,6 +40,8 @@
     "gulp-uglify": "^1.4.2",
     "gulp-util": "^3.0.7",
     "reactify": "^1.1.1",
+    "superagent": "^1.6.1",
+    "superagent-promise": "^1.1.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0"
   }
