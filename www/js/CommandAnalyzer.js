@@ -1,18 +1,19 @@
 import FreeboxCommander from './freebox/FreeboxCommander';
+import SncfCommander from './sncf/SncfCommander';
 
 var CommandAnalyzer = {
-	
+
 	commands: [],
 	plugins: [],
 	lastCommand: {},
 
 	init: function(){
-		this.loadPlugins(); 
-		this.startRecognize = cordova.plugins.androidSpeech.startRecognize,
+		this.loadPlugins();
+		this.startRecognize = !window.isDesktop && cordova.plugins.androidSpeech.startRecognize,
 		this.speak = function(text, queue = "false"){
-			cordova.plugins.androidTTS.speak(
-				function(){}, 
-				function(){}, 
+			!window.isDesktop && cordova.plugins.androidTTS.speak(
+				function(){},
+				function(){},
 				text,
 				queue
 			);
@@ -20,9 +21,15 @@ var CommandAnalyzer = {
 	},
 
 	loadPlugins: function(){
+		// Freebox
 		let freeboxPlugin = FreeboxCommander.loadPlugin();
 		this.commands = this.commands.concat(freeboxPlugin.commands);
 		this.plugins[freeboxPlugin.module] = FreeboxCommander;
+
+		// SNCF
+		const sncfPlugin = SncfCommander.loadPlugin();
+		this.commands = this.commands.concat(sncfPlugin.commands);
+		this.plugins[sncfPlugin.module] = SncfCommander;
 	},
 
 	compareSpeaksAgainstCommands: function(orders){
@@ -43,7 +50,19 @@ var CommandAnalyzer = {
 								commandeScore.parameters.numbers = numberParams;
 								commandeScore.score++;
 							}
-						} else if(order.indexOf(word) >= 0){
+						} else if( word === '{text}') {	// detect word between other words
+							const wordBefore = x > 0 ? `(?:${words[x-1]}?)` : '(?:^)';
+							const wordAfter = x < xl - 1 ? `(?:${words[x+1]}?)` : '(?:[$\?\.,\!])';
+							const regXP = new RegExp(`${wordBefore}(.*)${wordAfter}`, 'i');
+							const numberParams = order.match(regXP);
+							if(numberParams && numberParams.length === 2){
+								const keepText = numberParams[1].trim();
+								commandeScore.parameters.text = commandeScore.parameters.text ? commandeScore.parameters.text.concat([keepText]) : [keepText];
+								commandeScore.score++;
+							}
+
+						}
+						else if(order.indexOf(word) >= 0){
 							commandeScore.score++;
 						}
 					}
@@ -55,7 +74,7 @@ var CommandAnalyzer = {
 
 					// If BestScore => Augment score
 
-					resultats.push(commandeScore); 
+					resultats.push(commandeScore);
 				}
 			}
 		}
@@ -96,14 +115,21 @@ var CommandAnalyzer = {
 		for(var module in this.plugins){
 			if(this.plugins.hasOwnProperty(module) && module === command.com.module){
 				this.lastCommand = {command: command};
-				this.plugins[module].executeCommande(command, command.order, (error) =>{
-					let confirmSpeak = command.com.validation[Math.floor(Math.random() * command.com.validation.length)];
+				this.plugins[module].executeCommande(command, command.order, (error, resultat) =>{
 					if(error){
 						this.speak("Désolé monsieur, mais une erreur est survenue.", true);
-					} else {
+					} else if(command.com.validation){
+						let confirmSpeak = command.com.validation[Math.floor(Math.random() * command.com.validation.length)];
 						this.speak(confirmSpeak, true);
+					} else if(typeof (resultat) === 'string'){
+						console.log(resultat);
+						this.speak(resultat, true);
+					} else if(typeof(resultat) === 'object'){
+						// TODO A REVOIR
+						if(resultat.isNextStep){
+							console.log("IsNextStep")
+						}
 					}
-					
 				});
 			}
 		}
@@ -114,16 +140,18 @@ var CommandAnalyzer = {
 			(orders) => {
 				this.compareSpeaksAgainstCommands(orders);
 				//this.speak(function(){}, function(){}, commands[0]);
-			}, 
+			},
 			function(){
 				console.log(arguments);
-			}, 
-			0, 
-			"Test", 
+			},
+			0,
+			"Test",
 			"fr-FR"
 		);
+	},
 
-		
+	debugCompareOrder: function(order){
+		this.compareSpeaksAgainstCommands([order]);
 	}
 };
 

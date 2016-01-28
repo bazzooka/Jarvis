@@ -1,0 +1,18 @@
+{
+	"commandes" : [
+		{
+			"id": "meteo_now",
+			"module": "meteo",
+			"commandes" : [
+				["quel", "est", "temp", "aujourd"],
+				["quel", "est", "temp", "maintenant"],
+				["quel", "est", "temp", "actuel"]
+			],
+			"validation": [
+				"Le son de la télé a été augmenté",
+				"Monsieur, le son de la télé a été augmenté"
+			],
+			"verification": "Voulez-vous que j'augmente le son de la télé ?"
+		}
+	]
+}

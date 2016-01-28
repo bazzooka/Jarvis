@@ -1,0 +1,18 @@
+{
+  "commandes": [{
+    "id": "sncf_hor_depart",
+    "module": "sncf",
+    "commandes": [
+      ["A", "quel", "heure", "part", "train", "pour", "{TEXT}", "depuis", "{TEXT}"],
+      ["quel", "est", "prochain", "train", "pour", "{TEXT}", "depuis", "{TEXT}"]
+    ],
+    "verification": "Voulez-vous connaitre le prochain train pour $0 depuis $1 ?"
+  }, {
+    "id": "sncf_hors_depart",
+    "module": "sncf",
+    "commandes": [
+      ["quel", "sont", "prochain", "train", "pour", "{TEXT}", "depuis", "{TEXT}"]
+    ],
+    "vérification": "Voulez-vous connaitre les trains pour $0 depuis $1 ?"
+  }]
+}
