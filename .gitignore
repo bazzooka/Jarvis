@@ -5,3 +5,4 @@ npm-debug.log
 platforms/**
 plugins/**
 www/js/sncf/auth.js
+www/js/api_ai_auth.js

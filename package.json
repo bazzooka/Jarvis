@@ -18,7 +18,8 @@
   "homepage": "https://github.com/bazzooka/Jarvis#readme",
   "dependencies": {
     "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react-dom": "^0.14.0",
+    "superagent": "^1.7.2"
   },
   "devDependencies": {
     "babelify": "^6.4.0",

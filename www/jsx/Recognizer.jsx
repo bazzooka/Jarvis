@@ -8,7 +8,7 @@ let Recognizer = React.createClass({
 			CommandAnalyzer.listenCommand();
 		});
 
-		CommandAnalyzer.debugCompareOrder("A quelle heure est le prochain train pour Enghien les Bains depuis Paris ?");
+		CommandAnalyzer.debugCompareOrder("Quels sont les prochains trains ?");
 	},
 
 	render: function(){

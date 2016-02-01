@@ -1,5 +1,9 @@
+import request from 'superagent';
 import FreeboxCommander from './freebox/FreeboxCommander';
 import SncfCommander from './sncf/SncfCommander';
+
+import api_auth from './api_ai_auth';
+const API_AI_BASE_URL= 'https://api.api.ai/api/';
 
 var CommandAnalyzer = {
 
@@ -10,14 +14,24 @@ var CommandAnalyzer = {
 	init: function(){
 		this.loadPlugins();
 		this.startRecognize = !window.isDesktop && cordova.plugins.androidSpeech.startRecognize,
-		this.speak = function(text, queue = "false"){
-			!window.isDesktop && cordova.plugins.androidTTS.speak(
-				function(){},
-				function(){},
-				text,
-				queue
-			);
-		};
+		this.speak = null;
+		if(window.isDesktop){
+			this.speak = (text, queue, success, error) => {
+				setTimeout(()=>{
+					console.log("Speak", text, "queue", queue);
+					success();
+				}, 1000);
+			}
+		} else {
+			this.speak = (text, queue = "false", success, error) => {
+				cordova.plugins.androidTTS.speak(
+					success,
+					error,
+					text,
+					queue
+				);
+			}
+		}
 	},
 
 	loadPlugins: function(){
@@ -135,6 +149,31 @@ var CommandAnalyzer = {
 		}
 	},
 
+	getMeaning: function(orders) {
+		request
+			.get(`${API_AI_BASE_URL}/query`)
+			.set({Authorization: api_auth.authorization, 'ocp-apim-subscription-key' : api_auth.key})
+			.query({v: api_auth.version})
+			.query({query : orders[0]})
+			.query({lang: 'fr'})
+			.query({timezone: 'Europe/Paris'})
+			.end((err, res) => {
+				if(err){
+					this.speak("Désolé monsieur, mais une erreur est survenue.", true);
+				} else {
+					const body = res.body;
+					if(body.result.actionIncomplete) {
+						this.speak(this.result.fulfillment.speech, true);
+						// TODO Callback quand la lecture de la phrase est terminée
+						// TODO Listen à nouveau
+
+					} else {
+						// TODO Suivant intent et params exécuter action
+					}
+				}
+			})
+	},
+
 	listenCommand: function(){
 		this.startRecognize(
 			(orders) => {
@@ -151,7 +190,7 @@ var CommandAnalyzer = {
 	},
 
 	debugCompareOrder: function(order){
-		this.compareSpeaksAgainstCommands([order]);
+		this.getMeaning([order]);
 	}
 };
 
