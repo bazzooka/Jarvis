@@ -163,12 +163,17 @@ var CommandAnalyzer = {
 				} else {
 					const body = res.body;
 					if(body.result.actionIncomplete) {
-						this.speak(this.result.fulfillment.speech, true);
-						// TODO Callback quand la lecture de la phrase est terminée
-						// TODO Listen à nouveau
+						console.log(body);
+						this.speak(body.result.fulfillment.speech, true, ()=> {
+							// TODO Callback quand la lecture de la phrase est terminée
+							// TODO Listen à nouveau
+							this.listenCommandAI();
+						});
+
 
 					} else {
 						// TODO Suivant intent et params exécuter action
+						console.log(body);
 					}
 				}
 			})
@@ -178,6 +183,23 @@ var CommandAnalyzer = {
 		this.startRecognize(
 			(orders) => {
 				this.compareSpeaksAgainstCommands(orders);
+				//this.speak(function(){}, function(){}, commands[0]);
+			},
+			function(){
+				console.log(arguments);
+			},
+			0,
+			"Test",
+			"fr-FR"
+		);
+	},
+
+	listenCommandAI: function(){
+		let me = this;
+		this.startRecognize(
+			(orders) => {
+				me.getMeaning(orders);
+				// this.compareSpeaksAgainstCommands(orders);
 				//this.speak(function(){}, function(){}, commands[0]);
 			},
 			function(){
