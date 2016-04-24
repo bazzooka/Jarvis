@@ -36,14 +36,24 @@ var CommandAnalyzer = {
 
 	loadPlugins: function(){
 		// Freebox
-		let freeboxPlugin = FreeboxCommander.loadPlugin();
-		this.commands = this.commands.concat(freeboxPlugin.commands);
-		this.plugins[freeboxPlugin.module] = FreeboxCommander;
+		// let freeboxPlugin = FreeboxCommander.loadPlugin();
+		// this.commands = this.commands.concat(freeboxPlugin.commands);
+		// this.plugins[freeboxPlugin.module] = FreeboxCommander;
 
 		// SNCF
 		const sncfPlugin = SncfCommander.loadPlugin();
-		this.commands = this.commands.concat(sncfPlugin.commands);
+		// this.commands = this.commands.concat(sncfPlugin.commands);
+		this.loadCommandes(SncfCommander.getCommandes(), 'sncf');
 		this.plugins[sncfPlugin.module] = SncfCommander;
+	},
+
+	loadCommandes(commandes, module){
+		for(let i = 0, l = commandes.length; i < l; i++){
+			this.commands.push({
+				command: commandes[i],
+				module: module
+			});
+		}
 	},
 
 	compareSpeaksAgainstCommands: function(orders){
@@ -150,6 +160,7 @@ var CommandAnalyzer = {
 	},
 
 	getMeaning: function(orders) {
+		var me = this;
 		request
 			.get(`${API_AI_BASE_URL}/query`)
 			.set({Authorization: api_auth.authorization, 'ocp-apim-subscription-key' : api_auth.key})
@@ -163,20 +174,32 @@ var CommandAnalyzer = {
 				} else {
 					const body = res.body;
 					if(body.result.actionIncomplete) {
-						console.log(body);
+						// Command is incomplete
 						this.speak(body.result.fulfillment.speech, true, ()=> {
-							// TODO Callback quand la lecture de la phrase est terminée
-							// TODO Listen à nouveau
 							this.listenCommandAI();
 						});
-
-
 					} else {
-						// TODO Suivant intent et params exécuter action
-						console.log(body);
+						// Command is complete
+						me.sendToPlugin(body)
 					}
 				}
 			})
+	},
+
+	sendToPlugin(body){
+		let module = '',
+		command = '';
+		for(let i = 0, l = this.commands.length; i < l; i++){
+			if(this.commands[i].command === body.result.action){
+				module = this.commands[i].module;
+				command = this.commands[i].command;
+				this.plugins[module].executeCommand(command, body).then((response)=> {
+					
+				}).catch((err)=> {
+					this.speak('Une erreur est survenue', true;
+				})
+			}
+		}
 	},
 
 	listenCommand: function(){

@@ -14,6 +14,10 @@ let SncfCommander = {
     return (this.baseUrl);
   },
 
+  getCommandes(){
+    return commands.commandes;
+  },
+
   loadPlugin: function() {
     return {
       commands: commands.commandes,
@@ -47,18 +51,27 @@ let SncfCommander = {
   },
 
   getJourney: function(params){
-
+    let me = this;
     return new Promise ( (resolve, reject) => {
       agent('GET', `${SNCF_BASE_URL}/journeys`)
       .auth(authentification.login, authentification.pass)
-      .query({from: params.depart.id})
-      .query({to: params.destination.id})
+      .query({from: params.depart})
+      .query({to: params.destination})
       .query({datetime: params.datetime})
       .end((err,res) => {
         if(err){
-          reject(err);
+          return reject(err);
         }
-        resolve(res.body);
+        if(res.body.journeys.length > 0){
+          const journey = res.body.journey[0];
+          let speak =
+          let response = {
+            speak: `Monsieur j'ai un départ prévu pour ${me.getTimeFromSncf(journey.departure_date_time).hour} heure ${me.getTimeFromSncf(journey.departure_date_time).minute}`;
+
+          }
+          return resolve(res.body);
+        }
+
       })
     })
   },
@@ -96,28 +109,39 @@ let SncfCommander = {
     const d = new Date();
     let start = "",
     finish = "";
-    switch (command.com.id) {
-      case "sncf_hor_depart":
-        const datetime = `${d.getFullYear()}${this.padLeft(d.getMonth()+1, 2, '0')}${this.padLeft(d.getDate(), 2, '0')}T${this.padLeft(d.getHours(), 2, '0')}${this.padLeft(d.getMinutes(), 2, '0')}00`;
-        Promise.all([
-          this.getPosition({text: command.parameters.text[0], onlyStop: true}),
-          this.getPosition({text: command.parameters.text[1], onlyStop: true})
-        ]).then((results) => {
-          start = results[1];
-          finish = results[0];
-          return this.getJourney({depart: results[1], destination: results[0], datetime: datetime})
-        }).then((res) => {
-          console.log(res);
-          const
-            startTime = this.getTimeFromSncf(res.journeys[0].departure_date_time),
-            endTime = this.getTimeFromSncf(res.journeys[0].arrival_date_time);
-
-          callback(null, `Monieur, votre train partira de ${this.formatSncfName(start.name)} à ${startTime.hour} heure ${startTime.minute} et arrivera à ${this.formatSncfName(finish.name)} à ${endTime.hour} heure ${endTime.minute}`);
-        })
-        break;
-    }
+    // switch (command.com.id) {
+    //   case "sncf_hor_depart":
+    //     const datetime = `${d.getFullYear()}${this.padLeft(d.getMonth()+1, 2, '0')}${this.padLeft(d.getDate(), 2, '0')}T${this.padLeft(d.getHours(), 2, '0')}${this.padLeft(d.getMinutes(), 2, '0')}00`;
+    //     Promise.all([
+    //       this.getPosition({text: command.parameters.text[0], onlyStop: true}),
+    //       this.getPosition({text: command.parameters.text[1], onlyStop: true})
+    //     ]).then((results) => {
+    //       start = results[1];
+    //       finish = results[0];
+    //       return this.getJourney({depart: results[1], destination: results[0], datetime: datetime})
+    //     }).then((res) => {
+    //       console.log(res);
+    //       const
+    //         startTime = this.getTimeFromSncf(res.journeys[0].departure_date_time),
+    //         endTime = this.getTimeFromSncf(res.journeys[0].arrival_date_time);
+    //
+    //       callback(null, `Monieur, votre train partira de ${this.formatSncfName(start.name)} à ${startTime.hour} heure ${startTime.minute} et arrivera à ${this.formatSncfName(finish.name)} à ${endTime.hour} heure ${endTime.minute}`);
+    //     })
+    //     break;
+    // }
   },
 
+  executeCommand: function(command, params){
+    const d = new Date();
+    const datetime = `${d.getFullYear()}${this.padLeft(d.getMonth()+1, 2, '0')}${this.padLeft(d.getDate(), 2, '0')}T${this.padLeft(d.getHours(), 2, '0')}${this.padLeft(d.getMinutes(), 2, '0')}00`;
+    if('nextTrainFromTo' === command){
+      return this.getJourney({
+        depart: params.result.parameters.origin,
+        destination: params.result.parameters.target,
+        datetime: datetime
+      })
+    }
+  },
 };
 
 module.exports = SncfCommander;
