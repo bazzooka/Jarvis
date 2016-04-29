@@ -78,7 +78,7 @@ var browserifyTask = function(options) {
 
   /* When we are developing we want to watch for changes and
    trigger a rebundle */
-  if (options.development) {
+  if (options.development && !options.quick) {
     appBundler = watchify(appBundler);
     appBundler.on('update', rebundle);
   }
@@ -202,6 +202,15 @@ gulp.task('deploy', function() {
     src: './www/scss/*.scss'
   });
 
+});
+
+gulp.task('quick', function(){
+  browserifyTask({
+    development: true,
+    quick: true,
+    src: './www/js/main.js',
+    dest: './www/build'
+  });
 });
 
 gulp.task('dev', ['connect', 'default']);
