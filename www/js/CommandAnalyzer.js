@@ -194,7 +194,10 @@ var CommandAnalyzer = {
 				module = this.commands[i].module;
 				command = this.commands[i].command;
 				this.plugins[module].executeCommand(command, body).then((response)=> {
-					
+					if(response.journeys.length > 0){
+						const journey = response.journeys[0];
+						let speak = 'Le prochi'
+					}
 				}).catch((err)=> {
 					this.speak('Une erreur est survenue', true;
 				})

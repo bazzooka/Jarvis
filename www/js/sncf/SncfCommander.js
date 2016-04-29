@@ -135,6 +135,7 @@ let SncfCommander = {
     const d = new Date();
     const datetime = `${d.getFullYear()}${this.padLeft(d.getMonth()+1, 2, '0')}${this.padLeft(d.getDate(), 2, '0')}T${this.padLeft(d.getHours(), 2, '0')}${this.padLeft(d.getMinutes(), 2, '0')}00`;
     if('nextTrainFromTo' === command){
+      // TODO construct speak + after option
       return this.getJourney({
         depart: params.result.parameters.origin,
         destination: params.result.parameters.target,
